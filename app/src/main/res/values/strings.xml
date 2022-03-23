@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">IMS</string>
+    <string name="back4app_server_url">https://parseapi.back4app.com/</string>
+
+    <!-- Paste BOTH strings as required -->
+    <string name="back4app_app_id">x1qIaOtrsKzAzWHKsaHWO5FlIORhcWTSDKQdO6PU</string>
+    <string name="back4app_client_key">YVjy7yhJZKNvjEok6ALuIMstnpahdCoC46nHJgtE</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>

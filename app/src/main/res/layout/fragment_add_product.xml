@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.admin.AddProductFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+        <EditText
+            android:id = "@+id/productNameEditText"
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:hint="Product Name"
+            android:inputType = "text" />
+
+        <EditText
+            android:id = "@+id/categoryEditText"
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:hint="Category"
+            android:inputType = "text" />
+
+        <EditText
+            android:id = "@+id/priceEditText"
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:hint="Price"
+            android:inputType = "number" />
+
+        <TextView
+            android:id="@+id/barcodeview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:ems="10"
+            android:text="Bar/QR Code Number"
+            android:textColor="#000" />
+
+        <Button
+            android:id = "@+id/scanButton"
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:text = "Scan Bar/QR Code" />
+
+        <Button
+            android:id = "@+id/addItemButton"
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:text = "Add Item" />
+    </LinearLayout>
+
+</RelativeLayout>
