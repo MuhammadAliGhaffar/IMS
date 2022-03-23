@@ -60,6 +60,9 @@
         <action
             android:id="@+id/action_addProductFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment" />
+        <action
+            android:id="@+id/action_addProductFragment_to_addScannerFragment2"
+            app:destination="@id/addScannerFragment2" />
     </fragment>
     <fragment
         android:id="@+id/deleteProductFragment"
@@ -99,5 +102,14 @@
         <action
             android:id="@+id/action_deleteScannerFragment_to_deleteProductFragment"
             app:destination="@id/deleteProductFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addScannerFragment2"
+        android:name="com.studyo.ims.fragments.barcodescanner.add.AddScannerFragment"
+        android:label="fragment_add_scanner"
+        tools:layout="@layout/fragment_add_scanner" >
+        <action
+            android:id="@+id/action_addScannerFragment2_to_addProductFragment"
+            app:destination="@id/addProductFragment" />
     </fragment>
 </navigation>
