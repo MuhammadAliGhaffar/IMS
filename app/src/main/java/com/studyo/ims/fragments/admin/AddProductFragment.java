@@ -50,8 +50,11 @@ public class AddProductFragment extends Fragment {
         scanButton = view.findViewById(R.id.scanButton);
         barcodeTextView = view.findViewById(R.id.barcodeTextView);
 
-        if (getArguments() != null){
+        if (getArguments() != null) {
             barcodeTextView.setText(getArguments().getString("code"));
+            productNameEditText.setText(getArguments().getString("product_name"));
+            priceEditText.setText(getArguments().getString("product_price"));
+            categoryEditText.setText(getArguments().getString("product_category"));
         }
 
         scanButton.setOnClickListener(view1 -> {
@@ -59,9 +62,9 @@ public class AddProductFragment extends Fragment {
         });
 
         addItemButton.setOnClickListener(view1 -> {
-            if (productNameEditText.getText().toString().isEmpty() || categoryEditText.getText().toString().isEmpty()|| priceEditText.getText().toString().isEmpty()) {
+            if (productNameEditText.getText().toString().isEmpty() || categoryEditText.getText().toString().isEmpty() || priceEditText.getText().toString().isEmpty()) {
                 Toast.makeText(getContext(), "Please Enter all fields", Toast.LENGTH_SHORT).show();
-            }else {
+            } else {
                 parseObject.put("product_name", productNameEditText.getText().toString());
                 parseObject.put("product_price", priceEditText.getText().toString());
                 parseObject.put("product_category", categoryEditText.getText().toString());
@@ -72,7 +75,7 @@ public class AddProductFragment extends Fragment {
                         Log.d("AliTag", e.getLocalizedMessage());
                     } else {
                         Navigation.findNavController(getView()).navigate(R.id.action_addProductFragment_to_dashboardFragment);
-                        Toast.makeText(getContext(), "Object saved. "+ parseObject.getObjectId(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Object saved. " + parseObject.getObjectId(), Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -86,13 +89,17 @@ public class AddProductFragment extends Fragment {
             ActivityCompat.requestPermissions(getActivity(),
                     new String[]{Manifest.permission.CAMERA}, ZXING_CAMERA_PERMISSION);
         } else {
-            Navigation.findNavController(getView()).navigate(R.id.action_addProductFragment_to_addScannerFragment2);
+            Bundle bundle = new Bundle();
+            bundle.putString("product_name", productNameEditText.getText().toString());
+            bundle.putString("product_price", priceEditText.getText().toString());
+            bundle.putString("product_category", categoryEditText.getText().toString());
+            Navigation.findNavController(getView()).navigate(R.id.action_addProductFragment_to_addScannerFragment2, bundle);
 
         }
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,  String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
             case ZXING_CAMERA_PERMISSION:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {

@@ -15,7 +15,6 @@
             android:layout_width = "match_parent"
             android:layout_height = "wrap_content"
             android:layout_marginHorizontal="24dp"
-            android:text="ali123"
             android:hint="Username"
             android:inputType = "text" />
 
@@ -25,7 +24,6 @@
             android:layout_height = "wrap_content"
             android:layout_marginHorizontal="24dp"
             android:layout_below="@id/emailEditText"
-            android:text="12345678"
             android:hint="Password"
             android:inputType = "textPassword" />
 

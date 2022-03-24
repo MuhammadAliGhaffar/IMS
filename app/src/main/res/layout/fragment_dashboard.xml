@@ -6,8 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".fragments.admin.DashboardFragment">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textSize="27sp"
+        android:textColor="#000"
+        android:layout_marginTop="30dp"
+        android:text="Welcome Admin"/>
+
 
     <LinearLayout
+        android:id="@+id/cardContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"

@@ -15,10 +15,14 @@
             app:destination="@id/registerFragment" />
         <action
             android:id="@+id/action_loginFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment" />
+            app:destination="@id/dashboardFragment"
+            app:popUpTo="@+id/nav_main"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_loginFragment_to_homeFragmentFragment"
-            app:destination="@id/homeFragmentFragment" />
+            app:destination="@id/homeFragmentFragment"
+            app:popUpTo="@+id/nav_main"
+            app:popUpToInclusive="true"/>
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -59,7 +63,9 @@
         tools:layout="@layout/fragment_add_product" >
         <action
             android:id="@+id/action_addProductFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment" />
+            app:destination="@id/dashboardFragment"
+            app:popUpTo="@id/dashboardFragment"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_addProductFragment_to_addScannerFragment2"
             app:destination="@id/addScannerFragment2" />
@@ -71,7 +77,9 @@
         tools:layout="@layout/fragment_delete_product" >
         <action
             android:id="@+id/action_deleteProductFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment" />
+            app:destination="@id/dashboardFragment"
+            app:popUpTo="@id/dashboardFragment"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_deleteProductFragment_to_deleteScannerFragment"
             app:destination="@id/deleteScannerFragment" />
@@ -93,15 +101,21 @@
         <action
             android:id="@+id/action_viewProductFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment" />
+        <action
+            android:id="@+id/action_viewProductFragment_to_viewScannerFragment"
+            app:destination="@id/viewScannerFragment" />
     </fragment>
     <fragment
         android:id="@+id/deleteScannerFragment"
         android:name="com.studyo.ims.fragments.barcodescanner.delete.DeleteScannerFragment"
         android:label="fragment_delete_scanner"
-        tools:layout="@layout/fragment_delete_scanner" >
+        tools:layout="@layout/fragment_delete_scanner"
+        >
         <action
             android:id="@+id/action_deleteScannerFragment_to_deleteProductFragment"
-            app:destination="@id/deleteProductFragment" />
+            app:destination="@id/deleteProductFragment"
+            app:popUpTo="@id/deleteProductFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
     <fragment
         android:id="@+id/addScannerFragment2"
@@ -110,6 +124,19 @@
         tools:layout="@layout/fragment_add_scanner" >
         <action
             android:id="@+id/action_addScannerFragment2_to_addProductFragment"
-            app:destination="@id/addProductFragment" />
+            app:destination="@id/addProductFragment"
+            app:popUpTo="@id/addProductFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
+    <fragment
+        android:id="@+id/viewScannerFragment"
+        android:name="com.studyo.ims.fragments.barcodescanner.view.ViewScannerFragment"
+        android:label="fragment_view_scanner"
+        tools:layout="@layout/fragment_view_scanner" >
+        <action
+            android:id="@+id/action_viewScannerFragment_to_viewProductFragment"
+            app:destination="@id/viewProductFragment"
+            app:popUpTo="@id/viewProductFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
 </navigation>

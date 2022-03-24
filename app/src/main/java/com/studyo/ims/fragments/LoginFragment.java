@@ -44,21 +44,26 @@ public class LoginFragment extends Fragment {
             if (usernameEditText.getText().toString().isEmpty() || passwordEditText.getText().toString().isEmpty()) {
                 Toast.makeText(getContext(), "Please Enter all fields", Toast.LENGTH_SHORT).show();
             } else {
-
-                ParseUser.logInInBackground(usernameEditText.getText().toString(), passwordEditText.getText().toString(), (parseUser, e) -> {
-                    final ProgressDialog progressDialogg = new ProgressDialog(getContext());
-                    progressDialogg.setMessage("Logging in");
-                    progressDialogg.setCanceledOnTouchOutside(false);
-                    progressDialogg.show();
-                    if (parseUser != null) {
-                        Toast.makeText(getContext(), "Successful Login Welcome back " + usernameEditText.getText().toString() + " !", Toast.LENGTH_SHORT).show();
-                        Navigation.findNavController(getView()).navigate(R.id.action_loginFragment_to_dashboardFragment);
-                    } else {
-                        Toast.makeText(getContext(), "Login Fail " + e.getMessage() + "please re-try", Toast.LENGTH_SHORT).show();
-                        ParseUser.logOut();
-                    }
+                final ProgressDialog progressDialogg = new ProgressDialog(getContext());
+                progressDialogg.setMessage("Logging in");
+                progressDialogg.setCanceledOnTouchOutside(false);
+                progressDialogg.show();
+                if (usernameEditText.getText().toString().equals("admin") && passwordEditText.getText().toString().equals("admin")) {
+                    Toast.makeText(getContext(), "Successful Login Welcome back " + usernameEditText.getText().toString() + " !", Toast.LENGTH_SHORT).show();
+                    Navigation.findNavController(getView()).navigate(R.id.action_loginFragment_to_dashboardFragment);
                     progressDialogg.dismiss();
-                });
+                } else {
+                    ParseUser.logInInBackground(usernameEditText.getText().toString(), passwordEditText.getText().toString(), (parseUser, e) -> {
+                        if (parseUser != null) {
+                            Toast.makeText(getContext(), "Successful Login Welcome back " + usernameEditText.getText().toString() + " !", Toast.LENGTH_SHORT).show();
+                            Navigation.findNavController(getView()).navigate(R.id.action_loginFragment_to_homeFragmentFragment);
+                        } else {
+                            Toast.makeText(getContext(), "Login Fail " + e.getMessage() + "please re-try", Toast.LENGTH_SHORT).show();
+                            ParseUser.logOut();
+                        }
+                        progressDialogg.dismiss();
+                    });
+                }
             }
         });
 
