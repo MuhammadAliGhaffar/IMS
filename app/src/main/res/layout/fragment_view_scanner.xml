@@ -4,4 +4,4 @@
     android:id="@+id/viewScannerFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.barcodescanner.view.ViewScannerFragment"/>
+    tools:context=".fragments.admin.adminbarcodescanner.view.ViewScannerFragment"/>

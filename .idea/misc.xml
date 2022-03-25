@@ -21,9 +21,13 @@
         <entry key="..\:/MobileProjectsWorkspace/AndroidDevelopment/IMS/app/src/main/res/layout/item_row.xml" value="0.259375" />
         <entry key="..\:/MobileProjectsWorkspace/AndroidDevelopment/IMS/app/src/main/res/layout/simple_scanner_fragment.xml" value="0.259375" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.303125" />
+        <entry key="app/src/main/res/layout/fragment_delete_scanner.xml" value="0.303125" />
         <entry key="app/src/main/res/layout/fragment_home_fragment.xml" value="0.303125" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.303125" />
+        <entry key="app/src/main/res/layout/fragment_purchase_item.xml" value="0.303125" />
+        <entry key="app/src/main/res/layout/fragment_purchase_scanner.xml" value="0.303125" />
         <entry key="app/src/main/res/layout/fragment_register.xml" value="0.303125" />
+        <entry key="app/src/main/res/layout/fragment_view_product.xml" value="0.303125" />
       </map>
     </option>
   </component>

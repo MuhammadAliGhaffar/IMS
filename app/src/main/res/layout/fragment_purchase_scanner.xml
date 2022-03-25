@@ -3,5 +3,5 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/addScannerFragment"
-    tools:context=".fragments.admin.adminbarcodescanner.add.AddScannerFragment"/>
+    android:id="@+id/purchaseScannerFragment"
+    tools:context=".fragments.user.userbarcodescanner.purchase.PurchaseScannerFragment"/>

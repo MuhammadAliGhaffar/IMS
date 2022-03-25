@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.user.PurchaseItemFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="50dp"
+        android:weightSum="4"
+        android:paddingHorizontal="10dp"
+        android:layout_above="@id/cont2">
+
+        <TextView
+            android:id="@+id/productNameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Product Name :"/>
+
+        <TextView
+            android:id="@+id/productCategoryText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Product Category :"/>
+
+        <TextView
+            android:id="@+id/productPriceText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Product Price :"/>
+
+        <TextView
+            android:id="@+id/productScanText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Product BAR/QR Code :"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/cont2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="17sp"
+                android:text="Item to Display :"/>
+
+            <TextView
+                android:id="@+id/codeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="17sp"
+                android:layout_marginLeft="10dp"
+                android:text="Code Number"/>
+        </LinearLayout>
+
+        <Button
+            android:id = "@+id/scanButton"
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:text = "Scan Bar/QR Code" />
+
+        <Button
+            android:id = "@+id/viewButton"
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:text = "View Item" />
+
+        <Button
+            android:id = "@+id/purchaseButton"
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:text = "Purchase Item" />
+    </LinearLayout>
+
+</RelativeLayout>

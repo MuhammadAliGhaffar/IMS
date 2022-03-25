@@ -39,7 +39,7 @@ public class HomeFragmentFragment extends Fragment {
         usernameText.setText("Welcome "+user.getString("username"));
 
         purchaseItems.setOnClickListener(view1 -> {
-
+            Navigation.findNavController(getView()).navigate(R.id.action_homeFragmentFragment_to_purchaseItemFragment);
         });
         searchItems.setOnClickListener(view1 -> {
             Navigation.findNavController(getView()).navigate(R.id.action_homeFragmentFragment_to_viewProductFragment);

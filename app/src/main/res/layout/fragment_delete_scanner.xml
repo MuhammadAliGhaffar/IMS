@@ -4,4 +4,4 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/deleteScannerFragment"
-    tools:context=".fragments.barcodescanner.delete.DeleteScannerFragment"/>
+    tools:context=".fragments.admin.adminbarcodescanner.delete.DeleteScannerFragment"/>

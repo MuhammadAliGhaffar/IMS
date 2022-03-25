@@ -1,4 +1,4 @@
-package com.studyo.ims.fragments.barcodescanner.add;
+package com.studyo.ims.fragments.admin.adminbarcodescanner.delete;
 
 import android.os.Bundle;
 
@@ -13,29 +13,28 @@ import android.widget.RelativeLayout;
 
 import com.google.zxing.Result;
 import com.studyo.ims.R;
-import com.studyo.ims.fragments.barcodescanner.delete.DeleteScannerFragment;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 
-public class AddScannerFragment extends Fragment implements ZXingScannerView.ResultHandler {
+public class DeleteScannerFragment extends Fragment implements ZXingScannerView.ResultHandler {
 
     private ZXingScannerView mScannerView;
-    private RelativeLayout addScannerFragment;
+    private RelativeLayout deleteScannerFragment;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_add_scanner, container, false);
+        View view = inflater.inflate(R.layout.fragment_delete_scanner, container, false);
         initView(view);
         return view;
     }
 
     private void initView(View view) {
-        addScannerFragment = view.findViewById(R.id.addScannerFragment);
+        deleteScannerFragment = view.findViewById(R.id.deleteScannerFragment);
         mScannerView = new ZXingScannerView(getActivity());
-        addScannerFragment.addView(mScannerView);
+        deleteScannerFragment.addView(mScannerView);
     }
 
     @Override
@@ -49,13 +48,10 @@ public class AddScannerFragment extends Fragment implements ZXingScannerView.Res
     public void handleResult(Result rawResult) {
 
         Bundle bundle = new Bundle();
-        bundle.putString("product_name", getArguments().getString("product_name"));
-        bundle.putString("product_price", getArguments().getString("product_price"));
-        bundle.putString("product_category", getArguments().getString("product_category"));
         bundle.putString("code", rawResult.getText());
-        Navigation.findNavController(getView()).navigate(R.id.action_addScannerFragment2_to_addProductFragment, bundle);
+        Navigation.findNavController(getView()).navigate(R.id.action_deleteScannerFragment_to_deleteProductFragment, bundle);
         Handler handler = new Handler();
-        handler.postDelayed(() -> mScannerView.resumeCameraPreview(AddScannerFragment.this), 2000);
+        handler.postDelayed(() -> mScannerView.resumeCameraPreview(DeleteScannerFragment.this), 2000);
     }
 
     @Override

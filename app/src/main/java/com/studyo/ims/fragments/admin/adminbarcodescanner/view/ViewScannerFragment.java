@@ -1,4 +1,4 @@
-package com.studyo.ims.fragments.barcodescanner.view;
+package com.studyo.ims.fragments.admin.adminbarcodescanner.view;
 
 import android.os.Bundle;
 
@@ -13,7 +13,6 @@ import android.widget.RelativeLayout;
 
 import com.google.zxing.Result;
 import com.studyo.ims.R;
-import com.studyo.ims.fragments.barcodescanner.delete.DeleteScannerFragment;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
