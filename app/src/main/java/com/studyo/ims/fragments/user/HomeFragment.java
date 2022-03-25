@@ -10,15 +10,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.studyo.ims.R;
+import com.studyo.ims.fragments.user.model.User;
+import com.studyo.ims.fragments.utils.KeyValueStore;
 
-public class HomeFragmentFragment extends Fragment {
+public class HomeFragment extends Fragment {
 
-    private ParseUser user;
-    private TextView usernameText;
-    private CardView purchaseItems,searchItems,purchaseHistory,viewAllItems;
+    private static final String CLASS_NAME = "CustomUser";
+    private TextView usernameText, balanceText;
+    private CardView purchaseItems, searchItems, purchaseHistory, viewAllItems;
+    ParseQuery<ParseObject> customUser;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -29,14 +36,30 @@ public class HomeFragmentFragment extends Fragment {
     }
 
     private void initView(View view) {
-        user = ParseUser.getCurrentUser();
+        customUser = ParseQuery.getQuery(CLASS_NAME);
         usernameText = view.findViewById(R.id.usernameText);
         purchaseItems = view.findViewById(R.id.purchaseItems);
         searchItems = view.findViewById(R.id.searchItems);
         purchaseHistory = view.findViewById(R.id.purchaseHistory);
         viewAllItems = view.findViewById(R.id.viewAllItems);
+        balanceText = view.findViewById(R.id.balanceText);
 
-        usernameText.setText("Welcome "+user.getString("username"));
+
+        customUser.whereEqualTo("username", KeyValueStore.getUserDetails().getUsername());
+        customUser.whereEqualTo("email", KeyValueStore.getUserDetails().getEmail());
+        customUser.whereEqualTo("password", KeyValueStore.getUserDetails().getPassword());
+        customUser.findInBackground((objects, e) -> {
+            if (e == null) {
+                if (objects.size() == 0) {
+                    Toast.makeText(getContext(), "Error Unable to Fetched", Toast.LENGTH_SHORT).show();
+                } else {
+                    for (ParseObject reply : objects) {
+                        usernameText.setText("Welcome " + reply.getString("username"));
+                        balanceText.setText("Balance :" + reply.getString("balance"));
+                    }
+                }
+            }
+        });
 
         purchaseItems.setOnClickListener(view1 -> {
             Navigation.findNavController(getView()).navigate(R.id.action_homeFragmentFragment_to_purchaseItemFragment);
@@ -45,7 +68,7 @@ public class HomeFragmentFragment extends Fragment {
             Navigation.findNavController(getView()).navigate(R.id.action_homeFragmentFragment_to_viewProductFragment);
         });
         purchaseHistory.setOnClickListener(view1 -> {
-
+            Navigation.findNavController(getView()).navigate(R.id.action_homeFragmentFragment_to_purchaseHistoryFragment);
         });
         viewAllItems.setOnClickListener(view1 -> {
             Navigation.findNavController(getView()).navigate(R.id.action_homeFragmentFragment_to_viewInventoryFragment);

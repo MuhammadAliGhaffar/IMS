@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseRole;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
@@ -22,8 +23,10 @@ import com.studyo.ims.R;
 
 public class RegisterFragment extends Fragment {
 
+    private static final String CLASS_NAME = "CustomUser";
     private EditText emailEditText, passwordEditText, usernameEditText;
     private Button registerButton;
+    ParseObject customUser;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,14 +38,12 @@ public class RegisterFragment extends Fragment {
     }
 
     private void initView(View view) {
+        customUser = new ParseObject(CLASS_NAME);
         emailEditText = view.findViewById(R.id.emailEditText);
         passwordEditText = view.findViewById(R.id.passwordEditText);
         usernameEditText = view.findViewById(R.id.usernameEditText);
         registerButton = view.findViewById(R.id.registerButton);
 
-        if (ParseUser.getCurrentUser() != null) {
-            ParseUser.getCurrentUser().logOut();
-        }
 
         registerButton.setOnClickListener(view1 -> {
             if (emailEditText.getText().toString().isEmpty() || passwordEditText.getText().toString().isEmpty() || usernameEditText.getText().toString().isEmpty()) {
@@ -52,17 +53,14 @@ public class RegisterFragment extends Fragment {
                 progressDialog1.setMessage("Signing up " + usernameEditText.getText().toString());
                 progressDialog1.setCanceledOnTouchOutside(false);
                 progressDialog1.show();
-                ParseUser user = new ParseUser();
-                // Set the user's username and password, which can be obtained by a forms
-                user.setUsername(usernameEditText.getText().toString());
-                user.setEmail(emailEditText.getText().toString());
-                user.setPassword(passwordEditText.getText().toString());
-                user.signUpInBackground(e -> {
-                    if (e == null) {
+                customUser.put("username", usernameEditText.getText().toString());
+                customUser.put("email", emailEditText.getText().toString());
+                customUser.put("password", passwordEditText.getText().toString());
+                customUser.saveInBackground(e -> {
+                    if (e == null){
                         Toast.makeText(getContext(), "Account Created Successfully please verify your email before Login", Toast.LENGTH_SHORT).show();
                         Navigation.findNavController(getView()).navigate(R.id.action_registerFragment_to_loginFragment);
                     } else {
-                        ParseUser.logOut();
                         Toast.makeText(getContext(), "Error Account Creation failed account could not be created :" + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                     progressDialog1.dismiss();

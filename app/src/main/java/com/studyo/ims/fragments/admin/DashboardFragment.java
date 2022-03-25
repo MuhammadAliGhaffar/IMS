@@ -17,7 +17,7 @@ import com.studyo.ims.R;
 
 public class DashboardFragment extends Fragment {
 
-    private CardView addItems, deleteItems, scanItems, viewInventory;
+    private CardView addItems, deleteItems, scanItems, viewInventory,allUsers;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,6 +33,7 @@ public class DashboardFragment extends Fragment {
         deleteItems = view.findViewById(R.id.deleteItems);
         scanItems = view.findViewById(R.id.scanItems);
         viewInventory = view.findViewById(R.id.viewInventory);
+        allUsers = view.findViewById(R.id.allUsers);
 
         addItems.setOnClickListener(view1 -> {
             Navigation.findNavController(getView()).navigate(R.id.action_dashboardFragment_to_addProductFragment);
@@ -45,6 +46,9 @@ public class DashboardFragment extends Fragment {
         });
         viewInventory.setOnClickListener(view1 -> {
             Navigation.findNavController(getView()).navigate(R.id.action_dashboardFragment_to_viewInventoryFragment);
+        });
+        allUsers.setOnClickListener(view1 -> {
+            Navigation.findNavController(getView()).navigate(R.id.action_dashboardFragment_to_allUsersFragment);
         });
 
     }

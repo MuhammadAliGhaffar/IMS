@@ -93,10 +93,13 @@ public class PurchaseItemFragment extends Fragment {
                     query.findInBackground((objects, e) -> {
                         if (e == null) {
                             for (ParseObject reply : objects) {
+                                ParseUser user = ParseUser.getCurrentUser();
+
                                 String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
                                 String currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
 
                                 ParseObject purchaseHistory = new ParseObject("PurchaseHistory");
+                                purchaseHistory.put("username", user.getUsername());
                                 purchaseHistory.put("product_name", reply.getString("product_name"));
                                 purchaseHistory.put("product_category", reply.getString("product_category"));
                                 purchaseHistory.put("product_price", reply.getString("product_price"));
@@ -104,16 +107,17 @@ public class PurchaseItemFragment extends Fragment {
                                 purchaseHistory.put("date", currentDate);
                                 purchaseHistory.put("time", currentTime);
                                 purchaseHistory.saveInBackground();
-                                ParseUser user = ParseUser.getCurrentUser();
-                                int loyaltyPoints = Integer.parseInt(user.getString("loyalty_points"));
+                                int balance = Integer.parseInt(user.getString("balance"));
                                 int productPrice = Integer.parseInt(reply.getString("product_price"));
-                                int amount = loyaltyPoints - productPrice;
-                                user.put("loyalty_points", String.valueOf(amount) );
+                                int amount = balance - productPrice;
+                                user.add("balance", String.valueOf(amount));
                                 Toast.makeText(getContext(), "Item Purchased", Toast.LENGTH_SHORT).show();
-
                             }
                         }
                     });
+                }else {
+                    Toast.makeText(getContext(), "Scan First", Toast.LENGTH_SHORT).show();
+
                 }
 
             }

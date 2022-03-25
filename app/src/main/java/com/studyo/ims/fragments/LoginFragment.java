@@ -15,14 +15,20 @@ import android.widget.Toast;
 
 import com.parse.LogInCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.studyo.ims.R;
+import com.studyo.ims.fragments.user.model.User;
+import com.studyo.ims.fragments.utils.KeyValueStore;
 
 
 public class LoginFragment extends Fragment {
 
+    private static final String CLASS_NAME = "CustomUser";
     private EditText usernameEditText, passwordEditText;
     private Button loginButton, dontHaveAccountButton;
+    ParseQuery<ParseObject> customUser;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,6 +40,7 @@ public class LoginFragment extends Fragment {
     }
 
     private void initView(View view) {
+        customUser = ParseQuery.getQuery(CLASS_NAME);
         usernameEditText = view.findViewById(R.id.usernameEditText);
         passwordEditText = view.findViewById(R.id.passwordEditText);
         loginButton = view.findViewById(R.id.loginButton);
@@ -53,16 +60,23 @@ public class LoginFragment extends Fragment {
                     Navigation.findNavController(getView()).navigate(R.id.action_loginFragment_to_dashboardFragment);
                     progressDialogg.dismiss();
                 } else {
-                    ParseUser.logInInBackground(usernameEditText.getText().toString(), passwordEditText.getText().toString(), (parseUser, e) -> {
-                        if (parseUser != null) {
-                            Toast.makeText(getContext(), "Successful Login Welcome back " + usernameEditText.getText().toString() + " !", Toast.LENGTH_SHORT).show();
-                            Navigation.findNavController(getView()).navigate(R.id.action_loginFragment_to_homeFragmentFragment);
-                        } else {
-                            Toast.makeText(getContext(), "Login Fail " + e.getMessage() + "please re-try", Toast.LENGTH_SHORT).show();
-                            ParseUser.logOut();
+                    customUser.whereEqualTo("username", usernameEditText.getText().toString());
+                    customUser.whereEqualTo("password", passwordEditText.getText().toString());
+                    customUser.findInBackground((objects, e) -> {
+                        if (e == null) {
+                            if (objects.size() == 0) {
+                                Toast.makeText(getContext(), "Login Fail please re-try", Toast.LENGTH_SHORT).show();
+                            } else {
+                                for (ParseObject reply : objects) {
+                                    KeyValueStore.userDetails(new User(reply.getString("username"),reply.getString("email"),reply.getString("password")));
+                                    Toast.makeText(getContext(), "Successful Login Welcome back " + reply.getString("username") + " !", Toast.LENGTH_SHORT).show();
+                                    Navigation.findNavController(getView()).navigate(R.id.action_loginFragment_to_homeFragmentFragment);
+                                }
+                            }
                         }
                         progressDialogg.dismiss();
                     });
+
                 }
             }
         });
