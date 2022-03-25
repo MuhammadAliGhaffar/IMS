@@ -55,7 +55,14 @@
         android:id="@+id/homeFragmentFragment"
         android:name="com.studyo.ims.fragments.user.HomeFragmentFragment"
         android:label="fragment_home_fragment"
-        tools:layout="@layout/fragment_home_fragment" />
+        tools:layout="@layout/fragment_home_fragment" >
+        <action
+            android:id="@+id/action_homeFragmentFragment_to_viewInventoryFragment"
+            app:destination="@id/viewInventoryFragment" />
+        <action
+            android:id="@+id/action_homeFragmentFragment_to_viewProductFragment"
+            app:destination="@id/viewProductFragment" />
+    </fragment>
     <fragment
         android:id="@+id/addProductFragment"
         android:name="com.studyo.ims.fragments.admin.AddProductFragment"
@@ -92,6 +99,9 @@
         <action
             android:id="@+id/action_viewInventoryFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment" />
+        <action
+            android:id="@+id/action_viewInventoryFragment_to_homeFragmentFragment"
+            app:destination="@id/homeFragmentFragment" />
     </fragment>
     <fragment
         android:id="@+id/viewProductFragment"
@@ -104,6 +114,9 @@
         <action
             android:id="@+id/action_viewProductFragment_to_viewScannerFragment"
             app:destination="@id/viewScannerFragment" />
+        <action
+            android:id="@+id/action_viewProductFragment_to_homeFragmentFragment"
+            app:destination="@id/homeFragmentFragment" />
     </fragment>
     <fragment
         android:id="@+id/deleteScannerFragment"

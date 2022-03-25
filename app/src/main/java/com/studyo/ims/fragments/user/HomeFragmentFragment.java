@@ -2,65 +2,54 @@ package com.studyo.ims.fragments.user;
 
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.parse.ParseUser;
 import com.studyo.ims.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link HomeFragmentFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class HomeFragmentFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public HomeFragmentFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeFragmentFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static HomeFragmentFragment newInstance(String param1, String param2) {
-        HomeFragmentFragment fragment = new HomeFragmentFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
+    private ParseUser user;
+    private TextView usernameText;
+    private CardView purchaseItems,searchItems,purchaseHistory,viewAllItems;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home_fragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_home_fragment, container, false);
+        initView(view);
+        return view;
+    }
+
+    private void initView(View view) {
+        user = ParseUser.getCurrentUser();
+        usernameText = view.findViewById(R.id.usernameText);
+        purchaseItems = view.findViewById(R.id.purchaseItems);
+        searchItems = view.findViewById(R.id.searchItems);
+        purchaseHistory = view.findViewById(R.id.purchaseHistory);
+        viewAllItems = view.findViewById(R.id.viewAllItems);
+
+        usernameText.setText("Welcome "+user.getString("username"));
+
+        purchaseItems.setOnClickListener(view1 -> {
+
+        });
+        searchItems.setOnClickListener(view1 -> {
+            Navigation.findNavController(getView()).navigate(R.id.action_homeFragmentFragment_to_viewProductFragment);
+        });
+        purchaseHistory.setOnClickListener(view1 -> {
+
+        });
+        viewAllItems.setOnClickListener(view1 -> {
+            Navigation.findNavController(getView()).navigate(R.id.action_homeFragmentFragment_to_viewInventoryFragment);
+        });
+
     }
 }
