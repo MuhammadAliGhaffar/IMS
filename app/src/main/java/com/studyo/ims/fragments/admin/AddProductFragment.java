@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +32,7 @@ public class AddProductFragment extends Fragment {
     private Button addItemButton, scanButton;
     private ParseObject parseObject;
     private TextView barcodeTextView;
+    private ImageView backButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,6 +51,7 @@ public class AddProductFragment extends Fragment {
         addItemButton = view.findViewById(R.id.addItemButton);
         scanButton = view.findViewById(R.id.scanButton);
         barcodeTextView = view.findViewById(R.id.barcodeTextView);
+        backButton = view.findViewById(R.id.backButton);
 
         if (getArguments() != null) {
             barcodeTextView.setText(getArguments().getString("code"));
@@ -72,13 +75,17 @@ public class AddProductFragment extends Fragment {
                 parseObject.saveInBackground(e -> {
                     if (e != null) {
                         e.printStackTrace();
-                        Log.d("AliTag", e.getLocalizedMessage());
+                        Log.d("_debugTag", e.getLocalizedMessage());
                     } else {
                         Navigation.findNavController(getView()).navigate(R.id.action_addProductFragment_to_dashboardFragment);
                         Toast.makeText(getContext(), "Object saved. " + parseObject.getObjectId(), Toast.LENGTH_SHORT).show();
                     }
                 });
             }
+        });
+
+        backButton.setOnClickListener(view1 -> {
+            getActivity().onBackPressed();
         });
 
     }

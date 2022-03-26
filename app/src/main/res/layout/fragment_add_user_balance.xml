@@ -5,6 +5,34 @@
     android:layout_height="match_parent"
     tools:context=".fragments.admin.AddUserBalanceFragment">
 
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:background="?colorPrimary">
+
+        <ImageView
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:src="@drawable/ic_back"/>
+
+        <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Balance"
+            android:textSize="20sp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textColor="#fff"
+            android:textStyle="bold"/>
+
+
+    </RelativeLayout>
+
     <TextView
         android:id="@+id/usernameText"
         android:layout_width="wrap_content"
@@ -13,6 +41,7 @@
         android:textSize="30dp"
         android:textColor="#000"
         android:textStyle="bold"
+        android:layout_below="@id/toolbar"
         android:layout_marginTop="40dp"
         android:text="Username" />
 

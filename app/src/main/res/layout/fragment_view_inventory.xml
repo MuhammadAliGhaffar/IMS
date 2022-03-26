@@ -6,9 +6,38 @@
     android:orientation="vertical"
     tools:context=".fragments.admin.ViewInventoryFragment">
 
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:background="?colorPrimary">
+
+        <ImageView
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:src="@drawable/ic_back"/>
+
+        <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="View Inventory"
+            android:textSize="20sp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textColor="#fff"
+            android:textStyle="bold"/>
+
+
+    </RelativeLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -17,34 +46,13 @@
             android:id="@+id/viewInventory"
             android:textStyle="bold"
             android:textSize="20dp"
-            android:layout_marginLeft="3dp"
-            />
+            android:layout_marginLeft="3dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#FC0703"
             android:id="@+id/totalnoitem"
-            android:text="0"
-            android:textSize="20dp"
-            android:textStyle="bold"
-
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#000"
-            android:text=" Total sum = $ "
-            android:layout_marginLeft="30dp"
-            android:textSize="20dp"
-            android:textStyle="bold"
-
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#FC0703"
-            android:id="@+id/totalsum"
             android:text="0"
             android:textSize="20dp"
             android:textStyle="bold" />

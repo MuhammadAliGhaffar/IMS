@@ -68,7 +68,7 @@ public class LoginFragment extends Fragment {
                                 Toast.makeText(getContext(), "Login Fail please re-try", Toast.LENGTH_SHORT).show();
                             } else {
                                 for (ParseObject reply : objects) {
-                                    KeyValueStore.userDetails(new User(reply.getString("username"),reply.getString("email"),reply.getString("password")));
+                                    KeyValueStore.userDetails(new User(reply.getString("username"),reply.getString("email"),reply.getString("password"),reply.getObjectId()));
                                     Toast.makeText(getContext(), "Successful Login Welcome back " + reply.getString("username") + " !", Toast.LENGTH_SHORT).show();
                                     Navigation.findNavController(getView()).navigate(R.id.action_loginFragment_to_homeFragmentFragment);
                                 }

@@ -1,10 +1,12 @@
 package com.studyo.ims.fragments.admin;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -24,6 +26,7 @@ public class ViewInventoryFragment extends Fragment {
     private RecyclerView recyclerViews;
     private InventoryAdapter inventoryAdapter;
     private TextView totalnoitem;
+    private ImageView backButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,8 +41,12 @@ public class ViewInventoryFragment extends Fragment {
         parseObject = ParseQuery.getQuery(CLASS_NAME);
         recyclerViews = view.findViewById(R.id.recyclerViews);
         totalnoitem = view.findViewById(R.id.totalnoitem);
+        backButton = view.findViewById(R.id.backButton);
 
-
+        final ProgressDialog progressDialogg = new ProgressDialog(getContext());
+        progressDialogg.setMessage("Please wait fetching all items...");
+        progressDialogg.setCanceledOnTouchOutside(false);
+        progressDialogg.show();
         parseObject.orderByDescending("createdAt");
         parseObject.findInBackground((objects, e) -> {
             if (e == null) {
@@ -50,10 +57,15 @@ public class ViewInventoryFragment extends Fragment {
 
             } else {
 
-                Log.d("AliTag", e.getMessage());
-                Log.d("AliTag", e.getLocalizedMessage());
+                Log.d("_debugTag", e.getMessage());
+                Log.d("_debugTag", e.getLocalizedMessage());
 
             }
+            progressDialogg.dismiss();
+        });
+
+        backButton.setOnClickListener(view1 -> {
+            getActivity().onBackPressed();
         });
     }
 }

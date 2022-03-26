@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +30,7 @@ public class DeleteProductFragment extends Fragment {
     private static final int ZXING_CAMERA_PERMISSION = 1;
     TextView codeText;
     private Button scanButton, deleteButton;
+    private ImageView backButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,6 +45,7 @@ public class DeleteProductFragment extends Fragment {
         codeText = view.findViewById(R.id.codeText);
         scanButton = view.findViewById(R.id.scanButton);
         deleteButton = view.findViewById(R.id.deleteButton);
+        backButton = view.findViewById(R.id.backButton);
 
         if (getArguments() != null) {
             codeText.setText(getArguments().getString("code"));
@@ -67,6 +70,10 @@ public class DeleteProductFragment extends Fragment {
 
         scanButton.setOnClickListener(view1 -> {
             launchActivity();
+        });
+
+        backButton.setOnClickListener(view1 -> {
+            getActivity().onBackPressed();
         });
     }
 

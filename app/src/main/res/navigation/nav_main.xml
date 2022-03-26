@@ -168,7 +168,9 @@
         tools:layout="@layout/fragment_purchase_item" >
         <action
             android:id="@+id/action_purchaseItemFragment_to_homeFragmentFragment"
-            app:destination="@id/homeFragmentFragment" />
+            app:destination="@id/homeFragmentFragment"
+            app:popUpTo="@id/homeFragmentFragment"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_purchaseItemFragment_to_purchaseScannerFragment"
             app:destination="@id/purchaseScannerFragment" />

@@ -9,6 +9,7 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +19,7 @@ import com.studyo.ims.R;
 public class DashboardFragment extends Fragment {
 
     private CardView addItems, deleteItems, scanItems, viewInventory,allUsers;
+    private ImageView logoutButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,6 +36,7 @@ public class DashboardFragment extends Fragment {
         scanItems = view.findViewById(R.id.scanItems);
         viewInventory = view.findViewById(R.id.viewInventory);
         allUsers = view.findViewById(R.id.allUsers);
+        logoutButton = view.findViewById(R.id.logoutButton);
 
         addItems.setOnClickListener(view1 -> {
             Navigation.findNavController(getView()).navigate(R.id.action_dashboardFragment_to_addProductFragment);
@@ -49,6 +52,10 @@ public class DashboardFragment extends Fragment {
         });
         allUsers.setOnClickListener(view1 -> {
             Navigation.findNavController(getView()).navigate(R.id.action_dashboardFragment_to_allUsersFragment);
+        });
+
+        logoutButton.setOnClickListener(view1 -> {
+            Navigation.findNavController(getView()).navigateUp();
         });
 
     }

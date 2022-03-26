@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.studyo.ims.R;
+import com.studyo.ims.fragments.utils.KeyValueStore;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,6 +33,7 @@ public class PurchaseItemFragment extends Fragment {
     private static final int ZXING_CAMERA_PERMISSION = 1;
     private TextView productNameText, productCategoryText, productPriceText, productScanText, codeText;
     private Button scanButton, viewButton, purchaseButton;
+    private ImageView backButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,6 +53,7 @@ public class PurchaseItemFragment extends Fragment {
         scanButton = view.findViewById(R.id.scanButton);
         viewButton = view.findViewById(R.id.viewButton);
         purchaseButton = view.findViewById(R.id.purchaseButton);
+        backButton = view.findViewById(R.id.backButton);
 
         if (getArguments() != null) {
             codeText.setText(getArguments().getString("code"));
@@ -93,25 +97,37 @@ public class PurchaseItemFragment extends Fragment {
                     query.findInBackground((objects, e) -> {
                         if (e == null) {
                             for (ParseObject reply : objects) {
-                                ParseUser user = ParseUser.getCurrentUser();
 
-                                String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
-                                String currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
+                                ParseQuery<ParseObject> updateQuery = ParseQuery.getQuery("CustomUser");
+                                updateQuery.getInBackground(KeyValueStore.getUserDetails().getObjectId(), (data, error) -> {
+                                    if (error == null) {
+                                        String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+                                        String currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
 
-                                ParseObject purchaseHistory = new ParseObject("PurchaseHistory");
-                                purchaseHistory.put("username", user.getUsername());
-                                purchaseHistory.put("product_name", reply.getString("product_name"));
-                                purchaseHistory.put("product_category", reply.getString("product_category"));
-                                purchaseHistory.put("product_price", reply.getString("product_price"));
-                                purchaseHistory.put("product_qr_code", reply.getString("product_qr_code"));
-                                purchaseHistory.put("date", currentDate);
-                                purchaseHistory.put("time", currentTime);
-                                purchaseHistory.saveInBackground();
-                                int balance = Integer.parseInt(user.getString("balance"));
-                                int productPrice = Integer.parseInt(reply.getString("product_price"));
-                                int amount = balance - productPrice;
-                                user.add("balance", String.valueOf(amount));
-                                Toast.makeText(getContext(), "Item Purchased", Toast.LENGTH_SHORT).show();
+                                        ParseObject purchaseHistory = new ParseObject("PurchaseHistory");
+                                        purchaseHistory.put("username", KeyValueStore.getUserDetails().getUsername());
+                                        purchaseHistory.put("product_name", reply.getString("product_name"));
+                                        purchaseHistory.put("product_category", reply.getString("product_category"));
+                                        purchaseHistory.put("product_price", reply.getString("product_price"));
+                                        purchaseHistory.put("product_qr_code", reply.getString("product_qr_code"));
+                                        purchaseHistory.put("date", currentDate);
+                                        purchaseHistory.put("time", currentTime);
+                                        purchaseHistory.saveInBackground();
+                                        int balance = Integer.parseInt(KeyValueStore.getUserBalance());
+                                        int productPrice = Integer.parseInt(reply.getString("product_price"));
+                                        int amount = balance - productPrice;
+                                        data.put("balance",String.valueOf(amount));
+                                        data.saveInBackground();
+                                        Toast.makeText(getContext(), "Item Purchased", Toast.LENGTH_SHORT).show();
+                                        Navigation.findNavController(getView()).navigate(R.id.action_purchaseItemFragment_to_homeFragmentFragment);
+
+
+                                    }
+                                });
+
+
+
+
                             }
                         }
                     });
@@ -121,6 +137,10 @@ public class PurchaseItemFragment extends Fragment {
                 }
 
             }
+        });
+
+        backButton.setOnClickListener(view1 -> {
+            getActivity().onBackPressed();
         });
     }
 

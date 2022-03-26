@@ -9,6 +9,7 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ public class HomeFragment extends Fragment {
     private TextView usernameText, balanceText;
     private CardView purchaseItems, searchItems, purchaseHistory, viewAllItems;
     ParseQuery<ParseObject> customUser;
+    private ImageView logoutButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,6 +45,7 @@ public class HomeFragment extends Fragment {
         purchaseHistory = view.findViewById(R.id.purchaseHistory);
         viewAllItems = view.findViewById(R.id.viewAllItems);
         balanceText = view.findViewById(R.id.balanceText);
+        logoutButton = view.findViewById(R.id.logoutButton);
 
 
         customUser.whereEqualTo("username", KeyValueStore.getUserDetails().getUsername());
@@ -56,6 +59,7 @@ public class HomeFragment extends Fragment {
                     for (ParseObject reply : objects) {
                         usernameText.setText("Welcome " + reply.getString("username"));
                         balanceText.setText("Balance :" + reply.getString("balance"));
+                        KeyValueStore.setUserBalance(reply.getString("balance"));
                     }
                 }
             }
@@ -72,6 +76,11 @@ public class HomeFragment extends Fragment {
         });
         viewAllItems.setOnClickListener(view1 -> {
             Navigation.findNavController(getView()).navigate(R.id.action_homeFragmentFragment_to_viewInventoryFragment);
+        });
+
+        logoutButton.setOnClickListener(view1 -> {
+            KeyValueStore.clearPref();
+            Navigation.findNavController(getView()).navigateUp();
         });
 
     }

@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ public class ViewProductFragment extends Fragment {
     private static final int ZXING_CAMERA_PERMISSION = 1;
     private TextView productNameText,productCategoryText,productPriceText,productScanText,codeText;
     private Button scanButton,viewButton;
+    private ImageView backButton;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -43,6 +45,7 @@ public class ViewProductFragment extends Fragment {
         codeText = view.findViewById(R.id.codeText);
         scanButton = view.findViewById(R.id.scanButton);
         viewButton = view.findViewById(R.id.viewButton);
+        backButton = view.findViewById(R.id.backButton);
 
         if (getArguments() != null) {
             codeText.setText(getArguments().getString("code"));
@@ -58,11 +61,15 @@ public class ViewProductFragment extends Fragment {
                 query.whereEqualTo("product_qr_code", getArguments().getString("code"));
                 query.findInBackground((objects, e) -> {
                     if (e == null) {
-                        for (ParseObject reply : objects) {
-                            productNameText.setText("Product Name :"+reply.getString("product_name"));
-                            productCategoryText.setText("Product Category :"+reply.getString("product_category"));
-                            productPriceText.setText("Product Price :"+reply.getString("product_price"));
-                            productScanText.setText("Product BAR/QR Code :"+reply.getString("product_qr_code"));
+                        if (objects.size() == 0){
+                            Toast.makeText(getContext(), "Product not found", Toast.LENGTH_SHORT).show();
+                        }else {
+                            for (ParseObject reply : objects) {
+                                productNameText.setText("Product Name :"+reply.getString("product_name"));
+                                productCategoryText.setText("Product Category :"+reply.getString("product_category"));
+                                productPriceText.setText("Product Price :"+reply.getString("product_price"));
+                                productScanText.setText("Product BAR/QR Code :"+reply.getString("product_qr_code"));
+                            }
                         }
                     }
                 });
@@ -70,6 +77,10 @@ public class ViewProductFragment extends Fragment {
                 Toast.makeText(getContext(), "Please scan first", Toast.LENGTH_SHORT).show();
             }
 
+        });
+
+        backButton.setOnClickListener(view1 -> {
+            getActivity().onBackPressed();
         });
 
     }

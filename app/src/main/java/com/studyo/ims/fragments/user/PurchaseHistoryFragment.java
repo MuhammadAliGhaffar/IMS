@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
@@ -29,6 +30,7 @@ public class PurchaseHistoryFragment extends Fragment {
 
     private RecyclerView recyclerViews;
     private PurchaseHistoryAdapter purchaseHistoryAdapter;
+    private ImageView backButton;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -40,6 +42,7 @@ public class PurchaseHistoryFragment extends Fragment {
 
     private void initView(View view){
         recyclerViews = view.findViewById(R.id.recyclerViews);
+        backButton = view.findViewById(R.id.backButton);
         ParseQuery<ParseObject> query = ParseQuery.getQuery("PurchaseHistory");
         query.whereEqualTo("username", KeyValueStore.getUserDetails().getUsername());
         final ProgressDialog progressDialogg = new ProgressDialog(getContext());
@@ -57,9 +60,13 @@ public class PurchaseHistoryFragment extends Fragment {
                 }
 
             } else {
-                Log.d("AliTag", "Error: " + e.getMessage());
+                Log.d("_debugTag", "Error: " + e.getMessage());
             }
             progressDialogg.dismiss();
+        });
+
+        backButton.setOnClickListener(view1 -> {
+            getActivity().onBackPressed();
         });
     }
 }

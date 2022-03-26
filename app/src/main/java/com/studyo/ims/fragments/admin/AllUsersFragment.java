@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.parse.ParseException;
@@ -29,6 +30,7 @@ public class AllUsersFragment extends Fragment {
     private ParseQuery<ParseObject> parseObject;
     private RecyclerView recyclerViews;
     private UserAdapter userAdapter;
+    private ImageView backButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,6 +42,7 @@ public class AllUsersFragment extends Fragment {
     }
 
     private void initView(View view) {
+        backButton = view.findViewById(R.id.backButton);
         parseObject = ParseQuery.getQuery(CLASS_NAME);
         final ProgressDialog progressDialogg = new ProgressDialog(getContext());
         progressDialogg.setMessage("Please wait fetching all users...");
@@ -67,6 +70,10 @@ public class AllUsersFragment extends Fragment {
 
                 Navigation.findNavController(getView()).navigate(R.id.action_allUsersFragment_to_addUserBalanceFragment,bundle);
             });
+        });
+
+        backButton.setOnClickListener(view1 -> {
+            getActivity().onBackPressed();
         });
     }
 }
