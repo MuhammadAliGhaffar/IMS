@@ -53,6 +53,9 @@
         <action
             android:id="@+id/action_dashboardFragment_to_allUsersFragment"
             app:destination="@id/allUsersFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeFragmentFragment"
